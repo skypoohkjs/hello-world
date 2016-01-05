@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>10.7 문자의 개수에 의한 자동 탭 기능 구현하기</title>
+    <script src="../Scripts/jquery-1.4.2.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $('document').ready(function() {
+            $('fieldset.autotab input').bind('keydown keyup',function(event){
+                var keyCode = event.which;
+                var ignoreKeyCodes = ',9,16,17,18,19,20,27,33,34,35,36,37,38,39,40,45,46,144,145,';
+
+                if (ignoreKeyCodes.indexOf(',' + keyCode + ',') > -1) { return; }
+                if ( keyCode == 8 && event.type == 'keydown' ) { return; }
+                
+                var $this = $(this);
+                var currentLength = $this.val().length;
+                var maximumLength = $this.attr('maxlength');
+
+                if ( keyCode == 8 && currentLength == 0 ) {
+                    $this.prev().focus();
+                }
+
+                if ( currentLength == maximumLength ) {
+                    $this.next().focus();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>10.7 문자의 개수에 의한 자동 탭 기능 구현하기</h1>
+    <fieldset class="autotab">
+        <legend>Product Serial Number</legend>
+        <input type="text" maxlength="4" />
+        <input type="text" maxlength="4" />
+        <input type="text" maxlength="4" />
+        <input type="text" maxlength="4" />
+    </fieldset>
+</body>
+</html>
